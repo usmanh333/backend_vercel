@@ -11,6 +11,16 @@ const carRoutes = require('./routes/car');
 
 const app = express();
 
+// CORS configuration
+const corsOptions = {
+  origin: "https://frontend-vercel-gamma.vercel.app", // Allow frontend Vercel domain
+  methods: ["GET", "POST", "PUT", "DELETE"], // Add the HTTP methods you need to support
+  allowedHeaders: ["Content-Type", "Authorization"], // Add any headers you need to support
+};
+
+// Use CORS middleware
+app.use(cors(corsOptions));
+
 // Enable CORS for all requests
 app.use(cors());
 
