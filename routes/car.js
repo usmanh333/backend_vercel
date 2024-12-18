@@ -18,7 +18,7 @@ const router = express.Router();
 // router.post('/submit', authMiddleware, upload.array('images', 10), async (req, res) => {
 router.post('/submit', authMiddleware, async (req, res) => {
   const { carModel, price, phone, city } = req.body;
-  const imageUrls = req.files.map((file) => `/uploads/${file.filename}`);
+  // const imageUrls = req.files.map((file) => `/uploads/${file.filename}`);
 
   try {
     const car = new Car({
