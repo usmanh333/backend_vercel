@@ -1,8 +1,8 @@
-const express = require('express');
-const multer = require('multer');
-const { v4: uuidv4 } = require('uuid');
-const Car = require('../models/Car');
-const authMiddleware = require('../middleware/authMiddleware');
+const express = require("express");
+const multer = require("multer");
+const { v4: uuidv4 } = require("uuid");
+const Car = require("../models/Car");
+const authMiddleware = require("../middleware/authMiddleware");
 
 const router = express.Router();
 
@@ -16,8 +16,9 @@ const router = express.Router();
 
 // Submit Car Data
 // router.post('/submit', authMiddleware, upload.array('images', 10), async (req, res) => {
-  router.post('/submit', authMiddleware, async (req, res) => {
+router.post("/submit", authMiddleware, async (req, res) => {
   const { carModel, price, phone, city } = req.body;
+  console.log(req.body);
   // const imageUrls = req.files.map((file) => `/uploads/${file.filename}`);
 
   try {
@@ -27,13 +28,13 @@ const router = express.Router();
       price,
       phone,
       city,
-      images: "imageUrls",
+      images: [],
     });
 
     await car.save();
-    res.status(201).json({ message: 'Car submitted successfully', car });
+    res.status(201).json({ message: "Car submitted successfully", car });
   } catch (error) {
-   res.status(500).json({ error: error + " Server error" });
+    res.status(500).json({ error: error + " Server error" });
   }
 });
 
