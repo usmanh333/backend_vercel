@@ -10,6 +10,7 @@ const authRoutes = require('./routes/auth');
 const carRoutes = require('./routes/car');
 
 const app = express();
+const testRouter = app.router();
 
 
 // CORS configuration to allow preflight requests and specific methods
@@ -32,6 +33,11 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 app.use('/api/auth', authRoutes);
 app.use('/api/car', carRoutes);
+
+testRouter.get (req, res): void => {
+  const message = "Hello";
+  res.send(message);
+};
 
 mongoose.connect(process.env.MONGO_URI)
   .then(() => app.listen(5000, () => console.log('Server running on port 5000')))
