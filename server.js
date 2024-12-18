@@ -1,17 +1,15 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const dotenv = require('dotenv');
-const path = require('path');
-const cors = require('cors'); // Import CORS middleware
+const express = require("express");
+const mongoose = require("mongoose");
+const dotenv = require("dotenv");
+const path = require("path");
+const cors = require("cors"); // Import CORS middleware
 
 dotenv.config();
 
-const authRoutes = require('./routes/auth');
-const carRoutes = require('./routes/car');
+const authRoutes = require("./routes/auth");
+const carRoutes = require("./routes/car");
 
 const app = express();
-const testRouter = app.router();
-
 
 // CORS configuration to allow preflight requests and specific methods
 const corsOptions = {
@@ -25,20 +23,24 @@ const corsOptions = {
 // Enable CORS with the specified options
 app.use(cors(corsOptions));
 
-// Enable CORS for all requests
-// app.use(cors());
-
+// Enable parsing JSON and serving static files
 app.use(express.json());
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
-app.use('/api/auth', authRoutes);
-app.use('/api/car', carRoutes);
+// Define API routes
+app.use("/api/auth", authRoutes);
+app.use("/api/car", carRoutes);
 
-testRouter.get("/", (req, res) => {
+// Test route
+app.get("/", (req, res) => {
   const message = "Hello";
   res.send(message);
 });
 
-mongoose.connect(process.env.MONGO_URI)
-  .then(() => app.listen(5000, () => console.log('Server running on port 5000')))
+// Connect to MongoDB and start the server
+mongoose
+  .connect(process.env.MONGO_URI)
+  .then(() =>
+    app.listen(5000, () => console.log("Server running on port 5000"))
+  )
   .catch((err) => console.log(err));
