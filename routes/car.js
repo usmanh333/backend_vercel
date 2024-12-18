@@ -33,7 +33,7 @@ const router = express.Router();
     await car.save();
     res.status(201).json({ message: 'Car submitted successfully', car });
   } catch (error) {
-    res.status(500).json({ error: 'Server error' });
+   res.status(500).json({ error: error + " Server error" });
   }
 });
 
