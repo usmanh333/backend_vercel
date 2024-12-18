@@ -7,15 +7,16 @@ const authMiddleware = require('../middleware/authMiddleware');
 const router = express.Router();
 
 // Multer configuration
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => cb(null, 'uploads/'),
-  filename: (req, file, cb) => cb(null, `${uuidv4()}-${file.originalname}`),
-});
+// const storage = multer.diskStorage({
+//   destination: (req, file, cb) => cb(null, 'uploads/'),
+//   filename: (req, file, cb) => cb(null, `${uuidv4()}-${file.originalname}`),
+// });
 
-const upload = multer({ storage });
+// const upload = multer({ storage });
 
 // Submit Car Data
-router.post('/submit', authMiddleware, upload.array('images', 10), async (req, res) => {
+// router.post('/submit', authMiddleware, upload.array('images', 10), async (req, res) => {
+router.post('/submit', authMiddleware, async (req, res) => {
   const { carModel, price, phone, city } = req.body;
   const imageUrls = req.files.map((file) => `/uploads/${file.filename}`);
 
@@ -26,7 +27,7 @@ router.post('/submit', authMiddleware, upload.array('images', 10), async (req, r
       price,
       phone,
       city,
-      images: imageUrls,
+      images: "imageUrls",
     });
 
     await car.save();
