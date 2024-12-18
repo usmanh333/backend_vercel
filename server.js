@@ -25,7 +25,8 @@ app.use(cors());
 
 // Enable parsing JSON and serving static files
 app.use(express.json());
-app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+app.use(express.urlencoded({ extended: true }));
+// app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // Define API routes
 app.use("/api/auth", authRoutes);
@@ -45,5 +46,4 @@ mongoose
   )
   .catch((err) => console.log(err));
 
-module.exports = app;
-
+  module.exports = app;
