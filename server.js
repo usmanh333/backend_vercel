@@ -21,7 +21,7 @@ const corsOptions = {
 };
 
 // Enable CORS with the specified options
-app.use(cors(corsOptions));
+app.use(cors());
 
 // Enable parsing JSON and serving static files
 app.use(express.json());
